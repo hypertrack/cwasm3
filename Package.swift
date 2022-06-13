@@ -13,10 +13,21 @@ let package = Package(
     targets: [
         .target(
             name: "CWasm3",
+            dependencies: ["libuvwasi_a", "libuv_a"],
             cSettings: [
                 .define("APPLICATION_EXTENSION_API_ONLY", to: "YES"),
                 .define("d_m3MaxDuplicateFunctionImpl", to: "10"),
-            ]),
+                .define("d_m3HasUVWASI", to: "YES"),
+            ]
+        ),
+        .binaryTarget(
+            name: "libuvwasi_a",
+            path: "Libs/libuvwasi_a.xcframework"
+        ),
+        .binaryTarget(
+            name: "libuv_a",
+            path: "Libs/libuv_a.xcframework"
+        ),
         .testTarget(
             name: "CWasm3Tests",
             dependencies: ["CWasm3"],
